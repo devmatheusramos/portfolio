@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --bg: #050810;
+  --bg2: #080d1a;
+  --bg3: #0d1426;
+  --accent: #5B6FFF;
+  --accent2: #9B5EFF;
+  --text: #e8eaf6;
+  --text-dim: #8899cc;
+  --text-muted: #4a5580;
+  --border: rgba(91,111,255,0.2);
+  --border-dim: rgba(91,111,255,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(91,111,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91,111,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.prose-dark {
+  --tw-prose-body: #8899cc;
+  --tw-prose-headings: #e8eaf6;
+  --tw-prose-links: #5B6FFF;
+  --tw-prose-bold: #e8eaf6;
+  --tw-prose-counters: #4a5580;
+  --tw-prose-bullets: #4a5580;
+  --tw-prose-hr: rgba(91,111,255,0.1);
+  --tw-prose-quotes: #8899cc;
+  --tw-prose-quote-borders: rgba(91,111,255,0.4);
+  --tw-prose-code: #a0aaff;
+  --tw-prose-pre-code: #c8d0ff;
+  --tw-prose-pre-bg: #080d1a;
+  --tw-prose-th-borders: rgba(91,111,255,0.2);
+  --tw-prose-td-borders: rgba(91,111,255,0.08);
+}
+.prose-dark code::before,
+.prose-dark code::after { content: none; }
+.prose-dark pre { border: 1px solid rgba(91,111,255,0.15); }
+.prose-dark a { text-decoration: none; border-bottom: 1px solid rgba(91,111,255,0.3); transition: border-color 0.2s; }
+.prose-dark a:hover { border-color: var(--accent); }
