@@ -5,178 +5,20 @@ import Nav from '@/components/Nav'
 import PostCard from '@/components/PostCard'
 import Link from 'next/link'
 import PersonaSelector, { type Persona } from '@/components/PersonaSelector'
+import { HERO, ABOUT, SKILLS, SERVICES, PROJECTS, CTA_TITLE, LABELS, type Locale } from '@/lib/i18n'
 import type { PostMeta } from '@/types/post'
 
-// ═══════════════════════════════════════════════════════════════════
-// CONTENT
-// ═══════════════════════════════════════════════════════════════════
-
-const HERO = {
-  rh: {
-    tagText: 'aberto a oportunidades',
-    dotColor: '#fbbf24',
-    h1a: 'Arquiteto de',
-    h1b: 'Software & IA Sênior',
-    sub: 'Mais de 3 anos projetando sistemas de alta disponibilidade em produção. Python, Node.js, IA aplicada, integrações e microserviços. Disponível para CLT ou PJ, remoto.',
-    ctaPrimary: { href: 'https://www.linkedin.com/in/matheus-keeven/', label: '→ LinkedIn' },
-    ctaSecondary: { href: 'https://wa.me/5581995695520', label: '↗ WhatsApp' },
-    stats: [['3+', 'anos em produção'], ['Sênior', 'nível'], ['Remoto', 'disponível']],
-  },
-  ceo: {
-    tagText: 'disponível para projetos',
-    dotColor: '#4ade80',
-    h1a: 'Sistemas que fazem',
-    h1b: 'seu negócio crescer',
-    sub: 'Do zero ao produto em produção — SaaS, automações com IA, white-labels e integrações. Você vê funcionando, não só um protótipo.',
-    ctaPrimary: { href: 'https://wa.me/5581995695520', label: '↗ WhatsApp' },
-    ctaSecondary: { href: 'https://www.linkedin.com/in/matheus-keeven/', label: '→ LinkedIn' },
-    stats: [['3+', 'anos em produção'], ['5+', 'produtos lançados'], ['54%', 'sócio Nobreak IA']],
-  },
-  visitor: {
-    tagText: 'disponível para conversar',
-    dotColor: '#4ade80',
-    h1a: 'Faço sistemas que',
-    h1b: 'funcionam de verdade',
-    sub: 'Quando uma empresa precisa de algo — atender clientes automaticamente, conectar ferramentas, ou ter um sistema próprio — é isso que projeto e construo.',
-    ctaPrimary: { href: 'https://wa.me/5581995695520', label: '↗ WhatsApp' },
-    ctaSecondary: { href: 'https://www.linkedin.com/in/matheus-keeven/', label: '→ LinkedIn' },
-    stats: [['3+', 'anos de experiência'], ['10+', 'sistemas feitos'], ['Recife', 'PE · Brasil']],
-  },
-}
-
-const ABOUT = {
-  rh: {
-    heading: ['Arquiteto que entrega', 'resultados, não só código.'],
-    paragraphs: [
-      'Sou Matheus Ramos, Arquiteto de Software Sênior com mais de 3 anos projetando sistemas de alta disponibilidade em produção real. Atualmente na Atimo LLC (empresa americana) como desenvolvedor sênior e arquiteto responsável por sistemas críticos.',
-      'Especialista em Python, Node.js, arquitetura de microserviços, filas de mensagem, integrações com APIs externas e automações com IA — incluindo integração com ERPs e sistemas legados.',
-      'Co-fundador da Nobreak IA — construí do zero: arquitetura, infra, backend e frontend. Responsabilidade real, não só colaboração.',
-      'Pós em Arquitetura de Software + IA (XP Educação / IGTI, em andamento). Residência técnica no Porto Digital, CESAR School.',
-    ],
-    note: 'CLT · PJ · Remoto · Disponível imediatamente',
-  },
-  ceo: {
-    heading: ['Não vendo tecnologia.', 'Vendo o que ela', 'faz pro seu negócio.'],
-    paragraphs: [
-      'Construo sistemas que geram resultado — não só código que funciona no laptop. Sou co-fundador e arquiteto da Nobreak IA: plataforma de IA para negócios construída do zero, rodando em produção.',
-      'Quando entro em um projeto, penso em custo de infra, escalabilidade antes que vire problema e decisões que você não vai ter que desfazer em 6 meses.',
-      'Trabalho remotamente para a Atimo LLC (EUA) como arquiteto sênior — sistemas de alta disponibilidade, integrações complexas, automações que rodam 24h.',
-      'Se você tem uma ideia de produto ou um sistema que precisa crescer, posso ser o técnico que transforma isso em execução real.',
-    ],
-    note: null,
-  },
-  visitor: {
-    heading: ['Faço sistemas.', 'Simples assim.'],
-    paragraphs: [
-      'Me chamo Matheus Ramos. Há mais de 3 anos construo sistemas de computador que empresas usam no dia a dia — coisas que ficam ligadas 24 horas, que atendem clientes, processam pedidos sem precisar de alguém na frente do computador.',
-      'Meu trabalho é pensar em como as peças se encaixam — quais ferramentas usar, como o sistema vai crescer quando a empresa crescer, e como evitar que quebre.',
-      'Além do trabalho fixo em uma empresa americana, sou co-fundador da Nobreak IA: um sistema que coloca atendimento automatizado via IA no WhatsApp de negócios locais.',
-    ],
-    note: null,
-  },
-}
-
-const SKILLS: Record<Persona, [string, number][]> = {
-  rh: [
-    ['Python / Node.js', 92], ['Arquitetura de Software', 90],
-    ['React / Next.js', 85], ['IA / LLMs / RAG', 82],
-    ['Docker / VPS / Linux', 82], ['Integrações / APIs', 88],
-    ['MongoDB / SQL / Redis', 80], ['Microserviços', 85],
-    ['Cloud Architecture', 75], ['PHP / Laravel', 70],
-  ],
-  ceo: [
-    ['SaaS e white-label', 92], ['IA integrada ao produto', 88],
-    ['Plataformas escaláveis', 90], ['Deploy e infraestrutura', 82],
-    ['APIs e integrações', 88], ['Do zero à produção', 85],
-    ['Bancos de dados', 80], ['Automações de processo', 82],
-    ['Multi-tenant', 85], ['Custo de infra controlado', 75],
-  ],
-  visitor: [
-    ['Robôs que atendem clientes', 92], ['Sites e sistemas web', 85],
-    ['Conectar ferramentas', 88], ['Servidor sempre no ar', 82],
-    ['Tarefas automáticas', 80], ['Sistema que cresce sem quebrar', 85],
-    ['Banco de dados', 80], ['IA que responde perguntas', 82],
-    ['Hospedagem em nuvem', 75], ['Sistemas antigos', 70],
-  ],
-}
-
-type Service = { icon: string; name: string; desc: string; footer: string | null }
-const SERVICES: Record<Persona, { title: string[]; services: Service[] }> = {
-  rh: {
-    title: ['O que trago', 'para um time'],
-    services: [
-      { icon: '⬡', name: 'Arquitetura de Sistemas', desc: 'Projeto a estrutura técnica de sistemas do zero ou reestrutura o que já existe. Domain-driven, escalável, sem gambiarra.', footer: 'Sênior · CLT ou PJ · Remoto' },
-      { icon: '◈', name: 'Python + IA + Integrações', desc: 'Especialista em automações com Python, LLMs (OpenAI, Claude), RAG, integração com ERPs e APIs de terceiros.', footer: 'Sênior · Python · Node.js' },
-      { icon: '◎', name: 'Tech Lead / Mentoria', desc: 'Capacito times em arquitetura, boas práticas e tomada de decisão técnica. Já liderando equipes remotas na Atimo LLC.', footer: 'Disponível imediatamente' },
-    ],
-  },
-  ceo: {
-    title: ['O que posso', 'construir pra você'],
-    services: [
-      { icon: '⬡', name: 'Análise do seu sistema', desc: 'Descubro onde seu sistema está custando mais do que deveria ou impedindo crescimento. Entrego um plano técnico claro — sem tecniquês.', footer: 'R$ 800–1.500 · projeto pontual' },
-      { icon: '◈', name: 'Plataforma SaaS / white-label', desc: 'Construo do zero: sistema multi-cliente, cobrança recorrente, painel admin. Pronto para vender ou licenciar.', footer: 'sob orçamento' },
-      { icon: '◎', name: 'IA no seu produto', desc: 'Integro IA no que você já tem — ou construo do zero. Agentes, automações, respostas automáticas. Em semanas, não meses.', footer: 'R$ 1.500–3.000 · projeto' },
-    ],
-  },
-  visitor: {
-    title: ['Como', 'posso ajudar'],
-    services: [
-      { icon: '⬡', name: 'Olho o que você tem', desc: 'Analiso o sistema atual e explico o que está funcionando e o que poderia ser melhor. Em linguagem simples, sem jargão.', footer: null },
-      { icon: '◈', name: 'Construo o que falta', desc: 'Se você precisa de um site, sistema ou automação — construo do início ao fim. Você vê funcionando, não só um protótipo.', footer: null },
-      { icon: '◎', name: 'Conecto tudo', desc: 'Faço ferramentas diferentes conversarem: WhatsApp, planilhas, sistemas de gestão, CRM. Automatizo o que você faz na mão.', footer: null },
-    ],
-  },
-}
-
-type Project = { tag: string; tagClass: string; name: string; desc: string; stack: string[]; wip: boolean }
-const PROJECTS: Record<Persona, Project[]> = {
-  rh: [
-    { tag: 'ao vivo', tagClass: 'bg-[rgba(74,222,128,0.1)] text-[#4ade80] border-[rgba(74,222,128,0.3)]', name: 'Nobreak IA', desc: 'Plataforma multi-tenant de agentes IA para negócios locais. WhatsApp + webchat + LP pública por cliente. Co-fundador e arquiteto do zero.', stack: ['Node.js', 'Next.js', 'MongoDB', 'Docker', 'OpenAI', 'WhatsApp API'], wip: false },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'Node API Boilerplate', desc: 'Template open-source com arquitetura limpa, JWT, RBAC, testes e CI/CD pronto para produção.', stack: ['Node.js', 'TypeScript', 'Jest', 'Docker', 'GitHub Actions'], wip: true },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'AI Integration Kit', desc: 'Toolkit para integrar LLMs em sistemas existentes. Abstração de providers (OpenAI, Claude, Gemini) com fallback e cache.', stack: ['Python', 'FastAPI', 'LangChain', 'Redis'], wip: true },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'ADR Template System', desc: 'CLI + sistema de Architecture Decision Records para documentação técnica estruturada e rastreável.', stack: ['Node.js', 'Markdown', 'CLI'], wip: true },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'SaaS Starter Kit', desc: 'Boilerplate completo: auth, billing com Stripe, multi-tenant, dashboard admin.', stack: ['Next.js', 'Stripe', 'Prisma', 'PostgreSQL'], wip: true },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'Blog Técnico', desc: 'Artigos sobre arquitetura de software, decisões de design e IA aplicada.', stack: ['Next.js', 'MDX'], wip: true },
-  ],
-  ceo: [
-    { tag: 'ao vivo', tagClass: 'bg-[rgba(74,222,128,0.1)] text-[#4ade80] border-[rgba(74,222,128,0.3)]', name: 'Nobreak IA', desc: 'Plataforma de atendimento via IA — white-label para qualquer negócio. WhatsApp + webchat + página própria por cliente. Em produção.', stack: ['Multi-cliente', 'WhatsApp', 'IA', 'White-label'], wip: false },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'SaaS Starter Kit', desc: 'Template completo para lançar um micro-SaaS em dias — cobrança recorrente, painel admin, multi-cliente. Você começa a vender, não a configurar.', stack: ['Next.js', 'Stripe', 'Multi-cliente'], wip: true },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'AI Integration Kit', desc: 'Conecta IA ao sistema que você já tem — sem reescrever do zero. Funciona com OpenAI, Claude, Gemini.', stack: ['Qualquer sistema', 'OpenAI', 'Claude'], wip: true },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'Node API Boilerplate', desc: 'Backend pronto para crescer: autenticação, permissões, testes, deploy automático. Sem partir do zero toda vez.', stack: ['Node.js', 'TypeScript', 'Docker'], wip: true },
-  ],
-  visitor: [
-    { tag: 'ao vivo', tagClass: 'bg-[rgba(74,222,128,0.1)] text-[#4ade80] border-[rgba(74,222,128,0.3)]', name: 'Nobreak IA', desc: 'Um robô que atende clientes pelo WhatsApp — aprende sobre o negócio e responde automaticamente. Já funcionando para empresas reais.', stack: ['WhatsApp', 'Atendimento via IA'], wip: false },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'Kit de início rápido', desc: 'Um pacote para quem quer lançar um produto digital sem partir do zero — inclui tudo que uma empresa precisa para começar a cobrar.', stack: ['Produto digital', 'Cobrança', 'Painel admin'], wip: true },
-    { tag: 'em construção', tagClass: 'bg-[rgba(251,191,36,0.1)] text-[#fbbf24] border-[rgba(251,191,36,0.3)]', name: 'Blog', desc: 'Artigos explicando como sistemas funcionam — sem precisar ser da área de tecnologia para entender.', stack: ['Artigos', 'Explicações simples'], wip: true },
-  ],
-}
-
-const CTA_TITLE: Record<Persona, string[]> = {
-  rh: ['Vamos conversar', 'sobre oportunidades?'],
-  ceo: ['Seu produto está', 'pronto para crescer?'],
-  visitor: ['Ficou com alguma', 'dúvida?'],
-}
-
-// ═══════════════════════════════════════════════════════════════════
-// LAYOUT HELPERS — inline styles bypass all CSS layer/scanning issues
-// ═══════════════════════════════════════════════════════════════════
-
+// ── Layout helpers ───────────────────────────────────────────────────────
 const PX = { paddingLeft: 'clamp(24px, 5vw, 60px)', paddingRight: 'clamp(24px, 5vw, 60px)' }
 const PXY = { ...PX, paddingTop: 'clamp(80px, 10vw, 120px)', paddingBottom: 'clamp(80px, 10vw, 120px)' }
 const HERO_PAD = { ...PX, paddingTop: 'clamp(120px, 14vw, 160px)', paddingBottom: '80px' }
 
-// ═══════════════════════════════════════════════════════════════════
-// SVG DIAGRAMS
-// ═══════════════════════════════════════════════════════════════════
+// ── SVG Diagrams ─────────────────────────────────────────────────────────
 
 function DiagramMicro() {
   return (
     <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto block">
-      <defs>
-        <marker id="d1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(91,111,255,0.6)" />
-        </marker>
-      </defs>
+      <defs><marker id="d1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="rgba(91,111,255,0.6)" /></marker></defs>
       <rect x="10" y="110" width="80" height="40" rx="3" fill="rgba(91,111,255,0.12)" stroke="rgba(91,111,255,0.5)" strokeWidth="1" />
       <text x="50" y="126" textAnchor="middle" fill="#a0aaff" fontFamily="monospace" fontSize="9">CLIENT</text>
       <text x="50" y="140" textAnchor="middle" fill="#6677bb" fontFamily="monospace" fontSize="8">web / mobile</text>
@@ -214,11 +56,7 @@ function DiagramMicro() {
 function DiagramAgent() {
   return (
     <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto block">
-      <defs>
-        <marker id="d2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(155,94,255,0.7)" />
-        </marker>
-      </defs>
+      <defs><marker id="d2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="rgba(155,94,255,0.7)" /></marker></defs>
       <rect x="10" y="20" width="80" height="36" rx="3" fill="rgba(74,222,128,0.1)" stroke="rgba(74,222,128,0.4)" strokeWidth="1" />
       <text x="50" y="34" textAnchor="middle" fill="#4ade80" fontFamily="monospace" fontSize="8">WHATSAPP</text>
       <text x="50" y="48" textAnchor="middle" fill="#2a8850" fontFamily="monospace" fontSize="7">Evolution API</text>
@@ -261,11 +99,7 @@ function DiagramAgent() {
 function DiagramDeploy() {
   return (
     <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto block">
-      <defs>
-        <marker id="d3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(74,222,128,0.7)" />
-        </marker>
-      </defs>
+      <defs><marker id="d3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="rgba(74,222,128,0.7)" /></marker></defs>
       <text x="240" y="30" textAnchor="middle" fill="#4a5580" fontFamily="monospace" fontSize="9">git push → produção em minutos</text>
       {([
         { x: 10, label: 'LOCAL', sub: 'git push', color: '#8899ff', stroke: 'rgba(91,111,255,0.4)', fill: 'rgba(91,111,255,0.1)', lbl: 'dev' },
@@ -296,12 +130,8 @@ function DiagramAuth() {
   return (
     <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto block">
       <defs>
-        <marker id="d4a" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(91,111,255,0.6)" />
-        </marker>
-        <marker id="d4b" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(251,191,36,0.6)" />
-        </marker>
+        <marker id="d4a" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="rgba(91,111,255,0.6)" /></marker>
+        <marker id="d4b" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="rgba(251,191,36,0.6)" /></marker>
       </defs>
       <text x="285" y="25" textAnchor="middle" fill="#3a4466" fontFamily="monospace" fontSize="8">RBAC — roles por client_id</text>
       <rect x="10" y="80" width="70" height="40" rx="3" fill="rgba(91,111,255,0.1)" stroke="rgba(91,111,255,0.3)" strokeWidth="1" />
@@ -319,11 +149,7 @@ function DiagramAuth() {
       <text x="285" y="90" textAnchor="middle" fill="#4ade80" fontFamily="monospace" fontSize="8">MIDDLEWARE</text>
       <text x="285" y="104" textAnchor="middle" fill="#2a8850" fontFamily="monospace" fontSize="7">verify JWT</text>
       <text x="285" y="118" textAnchor="middle" fill="#2a8850" fontFamily="monospace" fontSize="7">inject user</text>
-      {[
-        { y: 55, role: 'OWNER', sub: 'full access', ly: 65 },
-        { y: 95, role: 'ADMIN', sub: 'manage agents', ly: 105 },
-        { y: 135, role: 'USER', sub: 'read only', ly: 145 },
-      ].map(r => (
+      {[{ y: 55, role: 'OWNER', sub: 'full access' }, { y: 95, role: 'ADMIN', sub: 'manage agents' }, { y: 135, role: 'USER', sub: 'read only' }].map(r => (
         <g key={r.role}>
           <rect x="360" y={r.y} width="80" height="30" rx="3" fill="rgba(91,111,255,0.06)" stroke="rgba(91,111,255,0.2)" strokeWidth="1" />
           <text x="400" y={r.y + 13} textAnchor="middle" fill="#6677bb" fontFamily="monospace" fontSize="7">{r.role}</text>
@@ -337,17 +163,18 @@ function DiagramAuth() {
   )
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// MAIN COMPONENT
-// ═══════════════════════════════════════════════════════════════════
+// ── Main Component ────────────────────────────────────────────────────────
 
 export default function HomeClient({ posts }: { posts: PostMeta[] }) {
   const [persona, setPersona] = useState<Persona | null>(null)
+  const [locale, setLocale] = useState<Locale>('pt')
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    const saved = localStorage.getItem('portfolio-persona') as Persona | null
-    setPersona(saved)
+    const savedPersona = localStorage.getItem('portfolio-persona') as Persona | null
+    const savedLocale = localStorage.getItem('portfolio-locale') as Locale | null
+    setPersona(savedPersona)
+    setLocale(savedLocale ?? 'pt')
     setLoaded(true)
   }, [])
 
@@ -359,31 +186,34 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
         es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
         { threshold: 0.1 }
       )
-      document.querySelectorAll('.reveal').forEach(el => {
-        el.classList.remove('visible')
-        obs.observe(el)
-      })
+      document.querySelectorAll('.reveal').forEach(el => { el.classList.remove('visible'); obs.observe(el) })
     }, 80)
     return () => { clearTimeout(id); obs?.disconnect() }
-  }, [persona])
+  }, [persona, locale])
 
   const select = (p: Persona) => { localStorage.setItem('portfolio-persona', p); setPersona(p) }
   const reset = () => { localStorage.removeItem('portfolio-persona'); setPersona(null) }
+  const toggleLocale = () => {
+    const next: Locale = locale === 'pt' ? 'en' : 'pt'
+    localStorage.setItem('portfolio-locale', next)
+    setLocale(next)
+  }
 
   if (!loaded) return <div className="min-h-screen bg-[var(--bg)]" />
-  if (!persona) return <PersonaSelector onSelect={select} />
+  if (!persona) return <PersonaSelector onSelect={select} locale={locale} onLocaleChange={toggleLocale} />
 
-  const h = HERO[persona]
-  const a = ABOUT[persona]
-  const skills = SKILLS[persona]
-  const svc = SERVICES[persona]
-  const projects = PROJECTS[persona]
-  const ctaTitle = CTA_TITLE[persona]
+  const h = HERO[persona][locale]
+  const a = ABOUT[persona][locale]
+  const skills = SKILLS[persona][locale]
+  const svc = SERVICES[persona][locale]
+  const projects = PROJECTS[persona][locale]
+  const ctaTitle = CTA_TITLE[persona][locale]
+  const L = LABELS[locale]
 
   return (
     <>
-      <Nav onReset={reset} />
-      <main key={persona}>
+      <Nav onReset={reset} locale={locale} onLocaleChange={toggleLocale} />
+      <main key={`${persona}-${locale}`}>
 
         {/* ── HERO ── */}
         <section id="hero" style={HERO_PAD} className="min-h-screen flex items-center overflow-hidden">
@@ -391,25 +221,18 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
             style={{ background: 'radial-gradient(circle, rgba(91,111,255,0.12) 0%, transparent 70%)' }} />
           <div className="absolute w-[400px] h-[400px] rounded-full top-[30%] right-[15%] pointer-events-none"
             style={{ background: 'radial-gradient(circle, rgba(155,94,255,0.1) 0%, transparent 70%)' }} />
-
           <div className="max-w-[800px] relative z-10">
             <div className="inline-flex items-center gap-2 font-mono text-xs text-[var(--accent)] border border-[var(--border)] px-4 py-1.5 mb-8 tracking-widest"
               style={{ animation: 'fadeUp 0.6s ease both' }}>
               <span className="status-dot" style={{ background: h.dotColor }} />
               {h.tagText}
             </div>
-
             <h1 className="font-serif leading-[1.05] tracking-tight text-white"
               style={{ fontSize: 'clamp(48px,7vw,88px)', animation: 'fadeUp 0.6s 0.1s ease both' }}>
-              {h.h1a}<br />
-              <em className="text-[var(--accent)] not-italic">{h.h1b}</em>
+              {h.h1a}<br /><em className="text-[var(--accent)] not-italic">{h.h1b}</em>
             </h1>
-
             <p className="text-lg text-[var(--text-dim)] font-light leading-relaxed max-w-xl mt-7 mb-12"
-              style={{ animation: 'fadeUp 0.6s 0.2s ease both' }}>
-              {h.sub}
-            </p>
-
+              style={{ animation: 'fadeUp 0.6s 0.2s ease both' }}>{h.sub}</p>
             <div className="flex gap-4 flex-wrap" style={{ animation: 'fadeUp 0.6s 0.3s ease both' }}>
               <a href={h.ctaPrimary.href} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 px-8 py-4 bg-[var(--accent)] text-white font-mono text-sm tracking-wider hover:bg-[#4a5eee] hover:-translate-y-0.5 transition-all">
@@ -420,7 +243,6 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
                 {h.ctaSecondary.label}
               </a>
             </div>
-
             <div className="flex gap-8 md:gap-12 mt-[72px] pt-12 border-t border-[var(--border-dim)] flex-wrap"
               style={{ animation: 'fadeUp 0.6s 0.4s ease both' }}>
               {h.stats.map(([n, l]) => (
@@ -437,7 +259,7 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
         <section id="sobre" style={PXY} className="border-t border-[var(--border-dim)]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="reveal">
-              <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">// sobre mim</p>
+              <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">{L.about}</p>
               <h2 className="font-serif leading-tight tracking-tight text-white mb-6" style={{ fontSize: 'clamp(32px,4vw,52px)' }}>
                 {a.heading.map((line, i) => <span key={i}>{line}{i < a.heading.length - 1 && <br />}</span>)}
               </h2>
@@ -467,18 +289,13 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
         {persona === 'visitor' ? (
           <section id="como-funciona" style={PXY} className="border-t border-[var(--border-dim)] bg-[var(--bg2)]">
             <div className="mb-[60px] reveal">
-              <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">// o que eu faço</p>
+              <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">{L.whatIDo}</p>
               <h2 className="font-serif leading-tight tracking-tight text-white" style={{ fontSize: 'clamp(32px,4vw,52px)' }}>
-                Na prática,<br />o que significa isso?
+                {L.whatIDoHeading.split('\n').map((line, i, arr) => <span key={i}>{line}{i < arr.length - 1 && <br />}</span>)}
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                { icon: '🤖', title: 'Robôs que atendem clientes', desc: 'Sistemas que respondem no WhatsApp, site ou aplicativo — 24 horas por dia, sem precisar de uma pessoa na frente do computador.' },
-                { icon: '🔗', title: 'Ferramentas conectadas', desc: 'Faço sistemas diferentes conversarem. WhatsApp com planilhas, loja virtual com sistema de gestão, formulário com CRM.' },
-                { icon: '🏗️', title: 'Sistema do zero', desc: 'Construo plataformas completas — desde onde os dados ficam guardados até a tela que a sua equipe usa todo dia.' },
-                { icon: '⚡', title: 'Sistema que não cai', desc: 'Projeto sistemas para aguentar muita gente acessando ao mesmo tempo, sem travar e sem perder dados.' },
-              ].map(card => (
+              {L.whatIDoCards.map(card => (
                 <div key={card.title} className="p-8 border border-[var(--border-dim)] bg-[var(--bg)] hover:border-[var(--accent)] hover:bg-[rgba(91,111,255,0.08)] transition-all reveal">
                   <div className="text-3xl mb-4">{card.icon}</div>
                   <h3 className="font-serif text-[20px] text-white mb-3">{card.title}</h3>
@@ -490,38 +307,38 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
         ) : (
           <section id="arquitetura" style={PXY} className="border-t border-[var(--border-dim)] bg-[var(--bg2)]">
             <div className="text-center mb-[72px] reveal">
-              <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">// arquitetura</p>
+              <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">{L.architecture}</p>
               <h2 className="font-serif leading-tight tracking-tight text-white" style={{ fontSize: 'clamp(32px,4vw,52px)' }}>
-                {persona === 'rh' ? 'Como eu penso sistemas' : <>Como entrego:<br />rápido, confiável, no prazo</>}
+                {L.archHeading[persona === 'rh' ? 'rh' : 'ceo'].split('\n').map((line, i, arr) => <span key={i}>{line}{i < arr.length - 1 && <br />}</span>)}
               </h2>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {persona === 'rh' && (
                 <div className="diagram-card reveal">
-                  <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.1em] uppercase mb-6">01 — arquitetura de microserviços</p>
+                  <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.1em] uppercase mb-6">01 — microservices architecture</p>
                   <DiagramMicro />
-                  <p className="mt-5 text-[13px] text-[var(--text-muted)] font-mono leading-relaxed">Gateway centralizado, serviços desacoplados por domínio, comunicação async via eventos. Cada serviço em container independente.</p>
+                  <p className="mt-5 text-[13px] text-[var(--text-muted)] font-mono leading-relaxed">{L.diagramDesc[0]}</p>
                 </div>
               )}
               <div className="diagram-card reveal">
                 <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.1em] uppercase mb-6">
-                  {persona === 'rh' ? '02 — ' : '01 — '}fluxo de agente IA (nobreak)
+                  {persona === 'rh' ? '02' : '01'} — AI agent flow (nobreak)
                 </p>
                 <DiagramAgent />
-                <p className="mt-5 text-[13px] text-[var(--text-muted)] font-mono leading-relaxed">Canal agnóstico (WA + webchat), orquestrador de fluxo, agente com tools reais e memória de sessão por cliente.</p>
+                <p className="mt-5 text-[13px] text-[var(--text-muted)] font-mono leading-relaxed">{L.diagramDesc[1]}</p>
               </div>
               <div className="diagram-card reveal">
                 <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.1em] uppercase mb-6">
-                  {persona === 'rh' ? '03 — ' : '02 — '}deploy pipeline
+                  {persona === 'rh' ? '03' : '02'} — deploy pipeline
                 </p>
                 <DiagramDeploy />
-                <p className="mt-5 text-[13px] text-[var(--text-muted)] font-mono leading-relaxed">Push no main dispara build Docker no VPS. Zero downtime com swap de containers.</p>
+                <p className="mt-5 text-[13px] text-[var(--text-muted)] font-mono leading-relaxed">{L.diagramDesc[2]}</p>
               </div>
               {persona === 'rh' && (
                 <div className="diagram-card reveal">
-                  <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.1em] uppercase mb-6">04 — autenticação jwt + rbac</p>
+                  <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.1em] uppercase mb-6">04 — jwt + rbac auth</p>
                   <DiagramAuth />
-                  <p className="mt-5 text-[13px] text-[var(--text-muted)] font-mono leading-relaxed">Auth stateless com JWT + RBAC por tenant. Cada cliente tem seu namespace isolado.</p>
+                  <p className="mt-5 text-[13px] text-[var(--text-muted)] font-mono leading-relaxed">{L.diagramDesc[3]}</p>
                 </div>
               )}
             </div>
@@ -531,9 +348,9 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
         {/* ── PROJETOS ── */}
         <section id="projetos" style={PXY} className="border-t border-[var(--border-dim)]">
           <div className="mb-[60px] reveal">
-            <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">// projetos</p>
+            <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">{L.projects}</p>
             <h2 className="font-serif leading-tight tracking-tight text-white" style={{ fontSize: 'clamp(32px,4vw,52px)' }}>
-              {persona === 'visitor' ? <>O que já<br />construí</> : <>O que já construí<br />e o que está vindo</>}
+              {L.projectHeading[persona].split('\n').map((line, i, arr) => <span key={i}>{line}{i < arr.length - 1 && <br />}</span>)}
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -558,7 +375,7 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
         {/* ── SERVIÇOS ── */}
         <section id="servicos" style={PXY} className="border-t border-[var(--border-dim)] bg-[var(--bg2)]">
           <div className="mb-[60px] reveal">
-            <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">// serviços</p>
+            <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">{L.services}</p>
             <h2 className="font-serif leading-tight tracking-tight text-white" style={{ fontSize: 'clamp(32px,4vw,52px)' }}>
               {svc.title.map((line, i) => <span key={i}>{line}{i < svc.title.length - 1 && <br />}</span>)}
             </h2>
@@ -572,7 +389,7 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
                 {s.footer && <p className="font-mono text-[13px] text-[var(--accent)]">{s.footer}</p>}
                 <a href="https://wa.me/5581995695520" target="_blank" rel="noopener noreferrer"
                   className="font-mono text-xs text-[var(--accent)] hover:underline mt-1">
-                  → falar sobre isso
+                  → {locale === 'pt' ? 'falar sobre isso' : 'talk about this'}
                 </a>
               </div>
             ))}
@@ -584,24 +401,20 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
           <section id="blog" style={PXY} className="border-t border-[var(--border-dim)]">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-[60px]">
               <div className="reveal">
-                <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">// blog</p>
+                <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">{L.blog}</p>
                 <h2 className="font-serif leading-tight tracking-tight text-white" style={{ fontSize: 'clamp(32px,4vw,52px)' }}>
-                  {persona === 'visitor' ? <>Explicando<br />como sistemas funcionam</> : <>Pensando em<br />sistemas em voz alta</>}
+                  {L.blogHeading[persona === 'visitor' ? 'visitor' : 'rh'].split('\n').map((line, i, arr) => <span key={i}>{line}{i < arr.length - 1 && <br />}</span>)}
                 </h2>
-                {persona === 'visitor' && (
-                  <p className="text-[var(--text-dim)] font-light text-base mt-4 max-w-md">
-                    Artigos sobre como sistemas funcionam — sem precisar ser da área de tecnologia.
-                  </p>
-                )}
+                <p className="text-[var(--text-dim)] font-light text-base mt-4 max-w-md">
+                  {L.blogSub[persona === 'visitor' ? 'visitor' : 'rh']}
+                </p>
               </div>
               <Link href="/blog" className="font-mono text-sm text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors whitespace-nowrap reveal">
-                ver todos →
+                {L.seeAll}
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map(p => (
-                <div key={p.slug} className="reveal"><PostCard post={p} /></div>
-              ))}
+              {posts.map(p => <div key={p.slug} className="reveal"><PostCard post={p} /></div>)}
             </div>
           </section>
         )}
@@ -611,30 +424,29 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
           <div className="absolute w-[800px] h-[400px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
             style={{ background: 'radial-gradient(ellipse, rgba(91,111,255,0.1) 0%, transparent 70%)' }} />
           <div className="relative z-10 reveal">
-            <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">// contato</p>
+            <p className="font-mono text-[11px] text-[var(--accent)] tracking-[0.2em] uppercase mb-5">{L.contact}</p>
             <h2 className="font-serif leading-tight tracking-tight text-white mb-5" style={{ fontSize: 'clamp(40px,6vw,72px)' }}>
               {ctaTitle.map((line, i) => <span key={i}>{line}{i < ctaTitle.length - 1 && <br />}</span>)}
             </h2>
             <p className="text-lg text-[var(--text-dim)] font-light mb-12">
-              Me manda uma mensagem. Sem formulário, sem reunião de discovery de 1h.<br className="hidden md:block" />
-              Direto ao ponto.
+              {L.contactSub.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <><br className="hidden md:block" /></>}</span>)}
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
               <a href="https://wa.me/5581995695520" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--accent)] text-white font-mono text-sm tracking-wider hover:bg-[#4a5eee] hover:-translate-y-0.5 transition-all">
-                ↗ WhatsApp agora
+                {L.ctaWA}
               </a>
               <a href="https://www.linkedin.com/in/matheus-keeven/" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 border border-[var(--border)] text-[var(--text-dim)] font-mono text-sm tracking-wider hover:border-[var(--accent)] hover:text-[var(--text)] transition-all">
-                → LinkedIn
+                {L.ctaLI}
               </a>
             </div>
           </div>
         </section>
 
         <footer style={PX} className="py-8 border-t border-[var(--border-dim)] flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="font-mono text-xs text-[var(--text-muted)]">© 2026 Matheus Ramos — Arquiteto de Software & IA</p>
-          <p className="font-mono text-xs text-[var(--text-muted)]">Recife, PE · Brasil</p>
+          <p className="font-mono text-xs text-[var(--text-muted)]">{L.footer1}</p>
+          <p className="font-mono text-xs text-[var(--text-muted)]">{L.footer2}</p>
         </footer>
 
       </main>
