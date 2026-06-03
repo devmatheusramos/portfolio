@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" fill="#050810"/>
+
+  <!-- Accent border -->
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" fill="none"
+        stroke="#5B6FFF" stroke-width="0.75" stroke-opacity="0.35"/>
+
+  <!-- Top-right accent line -->
+  <line x1="22" y1="0.75" x2="31.25" y2="0.75"
+        stroke="#5B6FFF" stroke-width="1.5" stroke-opacity="0.9"/>
+
+  <!-- Status dot -->
+  <circle cx="26.5" cy="5.5" r="1.75" fill="#4ade80"/>
+
+  <!-- MR — bold monospace -->
+  <text x="3" y="24"
+        font-family="'Courier New', Courier, monospace"
+        font-size="19" font-weight="700"
+        fill="#5B6FFF"
+        letter-spacing="-0.5">MR</text>
+
+  <!-- Underscore blink accent -->
+  <rect x="3" y="26.5" width="8" height="1.25" fill="#5B6FFF" opacity="0.5"/>
+</svg>
